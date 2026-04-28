@@ -143,6 +143,90 @@ footer {
   color: #94a3b8;
   margin-top: 30px;
 }
+
+  @media (max-width: 768px) {
+  body {
+    padding: 16px;
+  }
+
+  .container {
+    max-width: 100%;
+  }
+
+  h1 {
+    font-size: 28px;
+    line-height: 1.2;
+  }
+
+  .subtitle {
+    font-size: 15px;
+    margin-bottom: 24px;
+  }
+
+  .card {
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  .grid,
+  .summary {
+    grid-template-columns: 1fr;
+  }
+
+  .summary-card {
+    text-align: left;
+  }
+
+  table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  th,
+  td {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  input {
+    font-size: 16px;
+    padding: 13px;
+  }
+
+  .info {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 12px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  .card {
+    padding: 16px;
+  }
+
+  .summary-card strong {
+    font-size: 20px;
+  }
+
+  table {
+    font-size: 13px;
+  }
+
+  th,
+  td {
+    padding: 10px;
+  }
+}
 </style>
 </head>
 
