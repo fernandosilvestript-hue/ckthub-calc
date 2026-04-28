@@ -273,10 +273,14 @@
         const value = currentValues[i] ?? 10000;
         const row = document.createElement('div');
         row.className = 'socio-row';
-        row.innerHTML = `
-          <label for="socio-${i + 1}">Sócio ${i + 1}</label>
-          <input id="socio-${i + 1}" class="socio-value" type="number" min="0" step="100" value="${value}" />
-        `;
+        const nomes = ["EVD", "Fausto", "CKT"];
+
+row.innerHTML = `
+  <label for="socio-${i + 1}">
+    ${nomes[i] || `Sócio ${i + 1}`}
+  </label>
+  <input id="socio-${i + 1}" class="socio-value" type="number" min="0" step="100" value="${value}" />
+`;
         sociosList.appendChild(row);
       }
 
@@ -309,7 +313,7 @@
       outputs.liquidoSocios.textContent = formatCurrency(liquidoSocios);
 
       outputs.detalheSocios.innerHTML = '<strong>Distribuição líquida desejada:</strong><br />' +
-        valoresSocios.map((valor, index) => `Sócio ${index + 1}: ${formatCurrency(valor)}`).join('<br />');
+        valoresSocios.map((valor, index) => `${nomes[index] || `Sócio ${index + 1}`}: ${formatCurrency(valor)}`)
     }
 
     sociosInput.addEventListener('input', renderSocios);
