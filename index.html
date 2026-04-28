@@ -4,324 +4,225 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Calculadora de Precificação</title>
+
   <style>
-    :root {
-      --bg: #f7f3ee;
-      --card: #ffffff;
-      --text: #1f2933;
-      --muted: #6b7280;
-      --primary: #6d2d11;
-      --primary-light: #ffdba7;
-      --border: #e5e7eb;
-    }
-
-    * { box-sizing: border-box; }
-
     body {
       margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: linear-gradient(135deg, var(--bg), #fff8ef);
-      color: var(--text);
-      min-height: 100vh;
+      font-family: Inter, Arial, sans-serif;
+      background: #f5f7fb;
+      color: #1f2937;
       padding: 32px 16px;
     }
 
-    .container { max-width: 1080px; margin: 0 auto; }
-    .hero { text-align: center; margin-bottom: 28px; }
-
-    .hero h1 {
-      margin: 0 0 12px;
-      font-size: clamp(28px, 4vw, 44px);
-      color: var(--primary);
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
     }
 
-    .hero p {
-      margin: 0 auto;
-      max-width: 760px;
-      color: var(--muted);
-      font-size: 17px;
-      line-height: 1.5;
+    h1 {
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #6b7280;
+      margin-bottom: 32px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.05);
     }
 
     .grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 20px;
-      align-items: start;
     }
-
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 24px;
-      box-shadow: 0 12px 30px rgba(109, 45, 17, 0.08);
-    }
-
-    .card h2 {
-      margin: 0 0 18px;
-      font-size: 22px;
-      color: var(--primary);
-    }
-
-    .field { margin-bottom: 16px; }
 
     label {
-      display: block;
-      font-weight: 700;
-      margin-bottom: 7px;
       font-size: 14px;
+      font-weight: 600;
+      display: block;
+      margin-bottom: 6px;
     }
 
     input {
       width: 100%;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 13px 14px;
-      font-size: 16px;
-      color: var(--text);
-      outline: none;
-      transition: border 0.2s, box-shadow 0.2s;
-    }
-
-    input:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(109, 45, 17, 0.12);
-    }
-
-    .hint {
-      display: block;
-      margin-top: 5px;
-      font-size: 12px;
-      color: var(--muted);
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #e5e7eb;
+      font-size: 15px;
     }
 
     .socios-list {
       display: grid;
-      gap: 12px;
+      gap: 10px;
       margin-top: 10px;
     }
 
     .socio-row {
       display: grid;
-      grid-template-columns: 120px 1fr;
+      grid-template-columns: 1fr 1fr;
       gap: 10px;
-      align-items: end;
-      padding: 12px;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      background: #fafafa;
     }
 
-    .socio-row label {
-      margin-bottom: 0;
-      color: var(--primary);
+    .results {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 16px;
     }
 
-    .result-main {
-      background: var(--primary);
-      color: #fff;
-      border-radius: 18px;
-      padding: 22px;
-      margin-bottom: 18px;
-    }
-
-    .result-main span {
-      display: block;
-      font-size: 14px;
-      opacity: 0.85;
-      margin-bottom: 8px;
-    }
-
-    .result-main strong {
-      display: block;
-      font-size: clamp(30px, 5vw, 44px);
-      line-height: 1;
-    }
-
-    .results { display: grid; gap: 12px; }
-
-    .result-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 14px;
-      border-radius: 14px;
-      background: #fafafa;
-      border: 1px solid var(--border);
-    }
-
-    .result-row span { color: var(--muted); }
-    .result-row strong { text-align: right; }
-
-    .formula {
-      margin-top: 20px;
+    .result-box {
+      background: #f9fafb;
+      border-radius: 12px;
       padding: 16px;
-      border-radius: 14px;
-      background: var(--primary-light);
-      color: var(--primary);
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    .footer {
       text-align: center;
-      margin-top: 24px;
-      color: var(--muted);
-      font-size: 13px;
     }
 
-    @media (max-width: 820px) {
+    .result-box strong {
+      display: block;
+      margin-top: 6px;
+      font-size: 18px;
+    }
+
+    @media (max-width: 768px) {
       .grid { grid-template-columns: 1fr; }
-      .socio-row { grid-template-columns: 1fr; }
+      .results { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
+
 <body>
-  <main class="container">
-    <section class="hero">
-      <h1>Calculadora de Precificação</h1>
-      <p>Calcule quanto cobrar para pagar imposto, comissão do vendedor e ainda garantir valores líquidos diferentes para cada sócio.</p>
-    </section>
+  <div class="container">
 
-    <section class="grid">
-      <div class="card">
-        <h2>Dados do projeto</h2>
+    <h1>Calculadora de Preço de Serviço</h1>
+    <div class="subtitle">
+      Calcule quanto cobrar considerando imposto, comissão e valores por sócio.
+    </div>
 
-        <div class="field">
-          <label for="socios">Número de sócios / serviços</label>
-          <input id="socios" type="number" min="1" step="1" value="3" />
-          <span class="hint">Ao alterar este número, os campos abaixo serão atualizados.</span>
+    <div class="card">
+      <div class="grid">
+
+        <div>
+          <label>Número de sócios</label>
+          <input id="socios" type="number" value="3" />
         </div>
 
-        <div class="field">
-          <label>Receita líquida desejada por sócio</label>
-          <div id="sociosList" class="socios-list"></div>
+        <div>
+          <label>Imposto (%)</label>
+          <input id="imposto" type="number" value="10" />
         </div>
 
-        <div class="field">
-          <label for="imposto">Imposto sobre o valor cobrado (%)</label>
-          <input id="imposto" type="number" min="0" max="99" step="0.01" value="10" />
+        <div>
+          <label>Comissão (%)</label>
+          <input id="comissao" type="number" value="20" />
         </div>
 
-        <div class="field">
-          <label for="comissao">Comissão do vendedor sobre o líquido após imposto (%)</label>
-          <input id="comissao" type="number" min="0" max="99" step="0.01" value="20" />
-        </div>
       </div>
 
-      <div class="card">
-        <h2>Resultado</h2>
+      <div class="socios-list" id="sociosList"></div>
+    </div>
 
-        <div class="result-main">
-          <span>Total que precisa ser cobrado</span>
-          <strong id="totalProjeto">R$ 0,00</strong>
+    <div class="card">
+      <h3>Resultados</h3>
+
+      <div class="results">
+        <div class="result-box">
+          Total
+          <strong id="totalProjeto"></strong>
         </div>
 
-        <div class="results">
-          <div class="result-row"><span>Receita bruta média por serviço</span><strong id="mediaServico">R$ 0,00</strong></div>
-          <div class="result-row"><span>Imposto estimado</span><strong id="valorImposto">R$ 0,00</strong></div>
-          <div class="result-row"><span>Comissão do vendedor</span><strong id="valorComissao">R$ 0,00</strong></div>
-          <div class="result-row"><span>Líquido total para os sócios</span><strong id="liquidoSocios">R$ 0,00</strong></div>
+        <div class="result-box">
+          Imposto
+          <strong id="valorImposto"></strong>
         </div>
 
-        <div id="detalheSocios" class="formula"></div>
+        <div class="result-box">
+          Comissão
+          <strong id="valorComissao"></strong>
+        </div>
 
-        <div class="formula">
-          Fórmula usada:<br />
-          <strong>Total a cobrar = soma dos líquidos desejados ÷ [(1 - imposto) × (1 - comissão)]</strong>
+        <div class="result-box">
+          Líquido
+          <strong id="liquidoSocios"></strong>
         </div>
       </div>
-    </section>
+    </div>
 
-    <p class="footer">Observação: a comissão é calculada sobre o valor líquido após imposto.</p>
-  </main>
+  </div>
 
-  <script>
-    const sociosInput = document.getElementById('socios');
-    const sociosList = document.getElementById('sociosList');
-    const impostoInput = document.getElementById('imposto');
-    const comissaoInput = document.getElementById('comissao');
+<script>
+const nomes = ["EVD", "Lighthouse", "CKT"];
 
-    const outputs = {
-      totalProjeto: document.getElementById('totalProjeto'),
-      mediaServico: document.getElementById('mediaServico'),
-      valorImposto: document.getElementById('valorImposto'),
-      valorComissao: document.getElementById('valorComissao'),
-      liquidoSocios: document.getElementById('liquidoSocios'),
-      detalheSocios: document.getElementById('detalheSocios')
-    };
+const sociosInput = document.getElementById('socios');
+const sociosList = document.getElementById('sociosList');
+const impostoInput = document.getElementById('imposto');
+const comissaoInput = document.getElementById('comissao');
 
-    function formatCurrency(value) {
-      return new Intl.NumberFormat('pt-BR', {
-        style: 'currency',
-        currency: 'BRL'
-      }).format(value || 0);
-    }
+const outputs = {
+  totalProjeto: document.getElementById('totalProjeto'),
+  valorImposto: document.getElementById('valorImposto'),
+  valorComissao: document.getElementById('valorComissao'),
+  liquidoSocios: document.getElementById('liquidoSocios')
+};
 
-    function getSocioValues() {
-      return Array.from(document.querySelectorAll('.socio-value')).map(input => Math.max(Number(input.value) || 0, 0));
-    }
+function format(v){
+  return new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(v||0);
+}
 
-    function renderSocios() {
-      const currentValues = getSocioValues();
-      const totalSocios = Math.max(Number(sociosInput.value) || 1, 1);
-      sociosInput.value = totalSocios;
-      sociosList.innerHTML = '';
+function renderSocios(){
+  sociosList.innerHTML='';
+  const n = sociosInput.value;
 
-      for (let i = 0; i < totalSocios; i++) {
-        const value = currentValues[i] ?? 10000;
-        const row = document.createElement('div');
-        row.className = 'socio-row';
-        const nomes = ["EVD", "Fausto", "CKT"];
+  for(let i=0;i<n;i++){
+    const row = document.createElement('div');
+    row.className='socio-row';
 
-row.innerHTML = `
-  <label for="socio-${i + 1}">
-    ${nomes[i] || `Sócio ${i + 1}`}
-  </label>
-  <input id="socio-${i + 1}" class="socio-value" type="number" min="0" step="100" value="${value}" />
-`;
-        sociosList.appendChild(row);
-      }
+    row.innerHTML=`
+      <label>${nomes[i]||'Sócio '+(i+1)}</label>
+      <input class="val" value="10000" type="number" />
+    `;
 
-      document.querySelectorAll('.socio-value').forEach(input => {
-        input.addEventListener('input', calculate);
-      });
+    sociosList.appendChild(row);
+  }
 
-      calculate();
-    }
+  document.querySelectorAll('.val').forEach(i=>i.addEventListener('input',calc));
+  calc();
+}
 
-    function calculate() {
-      const valoresSocios = getSocioValues();
-      const socios = valoresSocios.length || 1;
-      const somaLiquidaDesejada = valoresSocios.reduce((sum, value) => sum + value, 0);
-      const imposto = Math.min(Math.max(Number(impostoInput.value) || 0, 0), 99) / 100;
-      const comissao = Math.min(Math.max(Number(comissaoInput.value) || 0, 0), 99) / 100;
+function calc(){
+  const valores = [...document.querySelectorAll('.val')].map(i=>+i.value||0);
+  const soma = valores.reduce((a,b)=>a+b,0);
 
-      const fator = (1 - imposto) * (1 - comissao);
-      const totalProjeto = fator > 0 ? somaLiquidaDesejada / fator : 0;
-      const mediaServico = totalProjeto / socios;
-      const valorImposto = totalProjeto * imposto;
-      const liquidoAposImposto = totalProjeto - valorImposto;
-      const valorComissao = liquidoAposImposto * comissao;
-      const liquidoSocios = liquidoAposImposto - valorComissao;
+  const imposto = impostoInput.value/100;
+  const comissao = comissaoInput.value/100;
 
-      outputs.totalProjeto.textContent = formatCurrency(totalProjeto);
-      outputs.mediaServico.textContent = formatCurrency(mediaServico);
-      outputs.valorImposto.textContent = formatCurrency(valorImposto);
-      outputs.valorComissao.textContent = formatCurrency(valorComissao);
-      outputs.liquidoSocios.textContent = formatCurrency(liquidoSocios);
+  const fator = (1-imposto)*(1-comissao);
+  const total = soma/fator;
 
-      outputs.detalheSocios.innerHTML = '<strong>Distribuição líquida desejada:</strong><br />' +
-        valoresSocios.map((valor, index) => `${nomes[index] || `Sócio ${index + 1}`}: ${formatCurrency(valor)}`)
-    }
+  const impostoValor = total*imposto;
+  const aposImposto = total-impostoValor;
+  const comissaoValor = aposImposto*comissao;
+  const liquido = aposImposto-comissaoValor;
 
-    sociosInput.addEventListener('input', renderSocios);
-    impostoInput.addEventListener('input', calculate);
-    comissaoInput.addEventListener('input', calculate);
+  outputs.totalProjeto.innerText = format(total);
+  outputs.valorImposto.innerText = format(impostoValor);
+  outputs.valorComissao.innerText = format(comissaoValor);
+  outputs.liquidoSocios.innerText = format(liquido);
+}
 
-    renderSocios();
-  </script>
+sociosInput.addEventListener('input', renderSocios);
+impostoInput.addEventListener('input', calc);
+comissaoInput.addEventListener('input', calc);
+
+renderSocios();
+</script>
+
 </body>
 </html>
-<!-- redeploy -->
