@@ -1,227 +1,305 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Calculadora de Precificação</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora de Preço de Serviço</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Inter, Arial, sans-serif;
-      background: #f5f7fb;
-      color: #1f2937;
-      padding: 32px 16px;
-    }
+<style>
+* {
+  box-sizing: border-box;
+  font-family: Inter, Arial, sans-serif;
+}
 
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-    }
+body {
+  margin: 0;
+  background: #f8fafc;
+  color: #172033;
+  padding: 30px;
+}
 
-    h1 {
-      text-align: center;
-      margin-bottom: 8px;
-    }
+.container {
+  max-width: 1100px;
+  margin: auto;
+}
 
-    .subtitle {
-      text-align: center;
-      color: #6b7280;
-      margin-bottom: 32px;
-    }
+h1 {
+  text-align: center;
+  font-size: 36px;
+  margin-bottom: 8px;
+}
 
-    .card {
-      background: white;
-      border-radius: 16px;
-      padding: 24px;
-      margin-bottom: 20px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.05);
-    }
+.subtitle {
+  text-align: center;
+  color: #64748b;
+  margin-bottom: 35px;
+}
 
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
+.card {
+  background: #fff;
+  border: 1px solid #dbe3ef;
+  border-radius: 12px;
+  padding: 28px;
+  margin-bottom: 28px;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
+}
 
-    label {
-      font-size: 14px;
-      font-weight: 600;
-      display: block;
-      margin-bottom: 6px;
-    }
+h2 {
+  color: #2563eb;
+  margin-top: 0;
+}
 
-    input {
-      width: 100%;
-      padding: 12px;
-      border-radius: 10px;
-      border: 1px solid #e5e7eb;
-      font-size: 15px;
-    }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
 
-    .socios-list {
-      display: grid;
-      gap: 10px;
-      margin-top: 10px;
-    }
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #334155;
+}
 
-    .socio-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
+input {
+  width: 100%;
+  padding: 14px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  font-size: 16px;
+}
 
-    .results {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      margin-top: 16px;
-    }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 18px;
+  border-radius: 10px;
+  overflow: hidden;
+}
 
-    .result-box {
-      background: #f9fafb;
-      border-radius: 12px;
-      padding: 16px;
-      text-align: center;
-    }
+th, td {
+  padding: 16px;
+  border: 1px solid #e2e8f0;
+  text-align: left;
+}
 
-    .result-box strong {
-      display: block;
-      margin-top: 6px;
-      font-size: 18px;
-    }
+th {
+  background: #f8fafc;
+  color: #64748b;
+  font-size: 14px;
+}
 
-    @media (max-width: 768px) {
-      .grid { grid-template-columns: 1fr; }
-      .results { grid-template-columns: 1fr 1fr; }
-    }
-  </style>
+.results {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+}
+
+.results h2 {
+  color: #15803d;
+}
+
+.summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+.summary-card {
+  background: #fff;
+  border: 1px solid #bbf7d0;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+}
+
+.summary-card span {
+  display: block;
+  color: #64748b;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.summary-card strong {
+  font-size: 22px;
+}
+
+.green { color: #16a34a; }
+.blue { color: #2563eb; }
+.purple { color: #9333ea; }
+
+.info {
+  background: #eff6ff;
+  border: 1px solid #93c5fd;
+  color: #2563eb;
+  padding: 18px;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+footer {
+  text-align: center;
+  color: #94a3b8;
+  margin-top: 30px;
+}
+</style>
 </head>
 
 <body>
-  <div class="container">
 
-    <h1>Calculadora de Preço de Serviço</h1>
-    <div class="subtitle">
-      Calcule quanto cobrar considerando imposto, comissão e valores por sócio.
-    </div>
+<div class="container">
+  <h1>Calculadora de Preço de Serviço</h1>
+  <p class="subtitle">
+    Calcule o valor a cobrar considerando imposto, comissão e distribuição entre sócios.
+  </p>
 
-    <div class="card">
-      <div class="grid">
+  <div class="card">
+    <h2>Configurações</h2>
 
-        <div>
-          <label>Número de sócios</label>
-          <input id="socios" type="number" value="3" />
-        </div>
-
-        <div>
-          <label>Imposto (%)</label>
-          <input id="imposto" type="number" value="10" />
-        </div>
-
-        <div>
-          <label>Comissão (%)</label>
-          <input id="comissao" type="number" value="20" />
-        </div>
-
+    <div class="grid">
+      <div>
+        <label>Imposto (%)</label>
+        <input type="number" id="imposto" value="10">
       </div>
 
-      <div class="socios-list" id="sociosList"></div>
-    </div>
-
-    <div class="card">
-      <h3>Resultados</h3>
-
-      <div class="results">
-        <div class="result-box">
-          Total
-          <strong id="totalProjeto"></strong>
-        </div>
-
-        <div class="result-box">
-          Imposto
-          <strong id="valorImposto"></strong>
-        </div>
-
-        <div class="result-box">
-          Comissão
-          <strong id="valorComissao"></strong>
-        </div>
-
-        <div class="result-box">
-          Líquido
-          <strong id="liquidoSocios"></strong>
-        </div>
+      <div>
+        <label>Comissão (%)</label>
+        <input type="number" id="comissao" value="20">
       </div>
     </div>
 
+    <hr style="margin:30px 0; border:none; border-top:1px solid #e2e8f0;">
+
+    <h3>Líquido desejado por sócio</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Sócio</th>
+          <th>Líquido (R$)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>EVD</td>
+          <td><input type="number" id="evd" value="10000"></td>
+        </tr>
+        <tr>
+          <td>Lighthouse</td>
+          <td><input type="number" id="lighthouse" value="10000"></td>
+        </tr>
+        <tr>
+          <td>CKT</td>
+          <td><input type="number" id="ckt" value="10000"></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
+  <div class="card results">
+    <h2>Resultados</h2>
+
+    <div class="summary">
+      <div class="summary-card">
+        <span>Total a cobrar</span>
+        <strong class="green" id="total"></strong>
+      </div>
+
+      <div class="summary-card">
+        <span>Imposto</span>
+        <strong class="blue" id="impostoValor"></strong>
+      </div>
+
+      <div class="summary-card">
+        <span>Comissão</span>
+        <strong class="purple" id="comissaoValor"></strong>
+      </div>
+
+      <div class="summary-card">
+        <span>Total líquido</span>
+        <strong class="green" id="liquido"></strong>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Sócio</th>
+          <th>Líquido</th>
+          <th>Valor a cobrar</th>
+          <th>Aumento</th>
+        </tr>
+      </thead>
+      <tbody id="resultado"></tbody>
+    </table>
+  </div>
+
+  <div class="info">
+    O imposto é aplicado sobre o total e a comissão sobre o líquido.
+  </div>
+
+  <footer>
+    Ferramenta de precificação em sociedade
+  </footer>
+</div>
+
 <script>
-const nomes = ["EVD", "Lighthouse", "CKT"];
-
-const sociosInput = document.getElementById('socios');
-const sociosList = document.getElementById('sociosList');
-const impostoInput = document.getElementById('imposto');
-const comissaoInput = document.getElementById('comissao');
-
-const outputs = {
-  totalProjeto: document.getElementById('totalProjeto'),
-  valorImposto: document.getElementById('valorImposto'),
-  valorComissao: document.getElementById('valorComissao'),
-  liquidoSocios: document.getElementById('liquidoSocios')
-};
-
-function format(v){
-  return new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(v||0);
+function moeda(v){
+  return v.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
 }
 
-function renderSocios(){
-  sociosList.innerHTML='';
-  const n = sociosInput.value;
+function calcular(){
+  const imposto = document.getElementById("imposto").value/100;
+  const comissao = document.getElementById("comissao").value/100;
 
-  for(let i=0;i<n;i++){
-    const row = document.createElement('div');
-    row.className='socio-row';
+  const evd = Number(document.getElementById("evd").value);
+  const lighthouse = Number(document.getElementById("lighthouse").value);
+  const ckt = Number(document.getElementById("ckt").value);
 
-    row.innerHTML=`
-      <label>${nomes[i]||'Sócio '+(i+1)}</label>
-      <input class="val" value="10000" type="number" />
+  const socios = [
+    {nome:"EVD", valor:evd},
+    {nome:"Lighthouse", valor:lighthouse},
+    {nome:"CKT", valor:ckt}
+  ];
+
+  const totalLiquido = evd + lighthouse + ckt;
+  const totalComissao = totalLiquido * comissao;
+  const subtotal = totalLiquido + totalComissao;
+  const total = subtotal / (1 - imposto);
+  const impostoValor = total - subtotal;
+
+  document.getElementById("total").innerText = moeda(total);
+  document.getElementById("impostoValor").innerText = moeda(impostoValor);
+  document.getElementById("comissaoValor").innerText = moeda(totalComissao);
+  document.getElementById("liquido").innerText = moeda(totalLiquido);
+
+  let html = "";
+
+  socios.forEach(s=>{
+    const proporcao = s.valor / totalLiquido;
+    const cobrar = total * proporcao;
+    const aumento = cobrar - s.valor;
+    const perc = (aumento/s.valor)*100;
+
+    html += `
+      <tr>
+        <td>${s.nome}</td>
+        <td>${moeda(s.valor)}</td>
+        <td>${moeda(cobrar)}</td>
+        <td>${moeda(aumento)} (${perc.toFixed(2)}%)</td>
+      </tr>
     `;
+  });
 
-    sociosList.appendChild(row);
-  }
-
-  document.querySelectorAll('.val').forEach(i=>i.addEventListener('input',calc));
-  calc();
+  document.getElementById("resultado").innerHTML = html;
 }
 
-function calc(){
-  const valores = [...document.querySelectorAll('.val')].map(i=>+i.value||0);
-  const soma = valores.reduce((a,b)=>a+b,0);
+document.querySelectorAll("input").forEach(i=>{
+  i.addEventListener("input", calcular);
+});
 
-  const imposto = impostoInput.value/100;
-  const comissao = comissaoInput.value/100;
-
-  const fator = (1-imposto)*(1-comissao);
-  const total = soma/fator;
-
-  const impostoValor = total*imposto;
-  const aposImposto = total-impostoValor;
-  const comissaoValor = aposImposto*comissao;
-  const liquido = aposImposto-comissaoValor;
-
-  outputs.totalProjeto.innerText = format(total);
-  outputs.valorImposto.innerText = format(impostoValor);
-  outputs.valorComissao.innerText = format(comissaoValor);
-  outputs.liquidoSocios.innerText = format(liquido);
-}
-
-sociosInput.addEventListener('input', renderSocios);
-impostoInput.addEventListener('input', calc);
-comissaoInput.addEventListener('input', calc);
-
-renderSocios();
+calcular();
 </script>
 
 </body>
